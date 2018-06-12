@@ -292,7 +292,7 @@ def loop(l):
                 #Returns specific attributes of matched items
                 if "-p" in com:
                     args+=2
-                    attrib = com[args-1].split(",")
+                    attrib = com[com.index('-p')+1].split(",")
                 #Performs the search
                 if len(com) > 1:
                     for item in l.searchAttributes(base," ".join(com[args:]),attrib,scope):
