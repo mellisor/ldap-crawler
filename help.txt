@@ -1,0 +1,61 @@
+The following commands are recognized in the script
+
+move: Changes the directory to the specified argument, moves one OU at a time
+    ex: move Columbia
+
+    optional args: 
+        ~: Moves back to the original base
+            ex: move ~
+
+        ..: Moves up one level
+            ex: move ..
+
+force: Like move but doesn't check to see if the OU is visible
+    ex: force Columbia
+    ex: force ..
+    ex: force ~
+
+dir: Lists all the OU's in the current base or the base passed in
+    ex: dir
+    ex: dir Columbia
+
+get: Returns all items in the current base OU
+    ex: get
+    ex: get -i
+
+    optional args:
+        -i: Returns all non-OU items
+
+search: Returns all items that match a given filter. Default scope is the current OU level
+    ex: search cn=Columbia
+    ex: search &(cn=John Doe)(objectClass=person)
+
+    optional args:
+        -a: Returns all attributes 
+            ex: search -a cn=Columbia
+
+        -o: Search scope set to origin (original base)
+            ex: search -o cn=Columbia 
+        
+        -p: Specifice search returns specific set of attributes <-- Must be the last argument before filter
+            ex: search -p distinguishedName,objectClass cn=Columbia
+            ex: search -p objectClass cn=Columbia
+
+        -s: Search scope set to subtree of current base
+            ex: search -s objectClass=organizationalUnit
+
+members: Returns all members of a specified group <-- base must be the same OU as the group
+    ex: members group
+
+save: Saves the most recent results to a list
+    ex: save
+    ex: save 1  <-- Will Overwrite results at index 1
+
+load: Loads the results stored at a given index of the list
+    ex: load 1
+
+query: Returns the ldap query used for the last command
+    ex: query    
+
+quit: Exits the program
+
