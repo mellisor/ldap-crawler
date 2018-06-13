@@ -341,7 +341,7 @@ def loop(l):
             with open("help.txt") as f:
                 print f.read()
         elif com[0] != "quit":
-            print "Unrecognize Command"
+            print "Unrecognized Command"
     print bcolors.ENDC
 
 if __name__ == "__main__":  
