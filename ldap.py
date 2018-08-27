@@ -123,9 +123,24 @@ class L_Client(ldap3.Connection):
             A list of members that are in the group
         
         """
+	print '(memberOf=cn=' + group + ',' + self.base + ')'
         self.search(self.origin,'(memberOf=cn='+ group + ','+self.base + ')',attributes=['distinguishedName','objectClass'])
         self.lastCom="self.search("+self.origin+",'(memberOf=cn="+ group +","+self.base+")',attributes=['distinguishedName','objectClass'])"
         return self.entries
+
+    def getSpecMembers(self,group,attr):
+	""" Returns specified attributes of members in a group
+
+	Args:
+	    group (string): Group name
+
+	    attr (string): list of attributes to return
+	
+"""
+	self.search(self.origin,'(memberof=cn='+ group +')',attributes=attr)
+	self.lastCom="self.search("+self.origin+",'(memberof=cn='"+ group +"')',attributes="+str(attr)+")"
+	return self.entries
+	
 
     def searchAttributes(self,base,filter,attr,scope):
         """ Versatile search query, useful for stuff 
@@ -225,6 +240,7 @@ def loop(l):
         #if (optional args):
         #else
         #Move command, used for moving between OUs
+        args = 1
         if op == "move":
             if len(com) == 1:
                 continue
@@ -302,8 +318,12 @@ def loop(l):
                 print e.message
         #Gets members of a group, no cn= needed (actually, only works without it)
         elif op == "members":
+            attrib = ['distinguishedName',]
+            if "-p" in com:
+                args+=2
+                attrib = com[com.index('-p')+1].split(",")
             if len(com) > 1:
-                for item in l.getMembers(" ".join(com[1:])):
+                for item in l.getSpecMembers(" ".join(com[args:]),attrib):
                     print item
                 print str(len(l.entries)) + " result(s)"
         #Saves the most recent output in a list
@@ -367,7 +387,7 @@ if __name__ == "__main__":
     l = L_Client(args.dc, args.uname, pwd)
     
     #Need to set this
-    l.setBase('dc=YOUR,dc=BASE,dc=HERE')
+    l.setBase('dc=ds,dc=sc,dc=edu')
     if l.base == 'dc=YOUR,dc=BASE,dc=HERE':
         print "Domain Components not set"
         exit()

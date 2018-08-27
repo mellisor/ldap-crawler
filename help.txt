@@ -37,15 +37,18 @@ search: Returns all items that match a given filter. Default scope is the curren
         -o: Search scope set to origin (original base)
             ex: search -o cn=Columbia 
         
-        -p: Specific search, returns specified set of attributes <-- attributes must match formatting below
+        -p: Specific search returns specific set of attributes <-- Must be the last argument before filter
             ex: search -p distinguishedName,objectClass cn=Columbia
             ex: search -p objectClass cn=Columbia
 
         -s: Search scope set to subtree of current base
             ex: search -s objectClass=organizationalUnit
 
-members: Returns all members of a specified group <-- base must be the same OU as the group
-    ex: members group
+members: Returns all members of a specified group 
+    ex: members GROUPNAME <-- Group name does not need a 'cn='
+    optional args:
+        -p: Specific search, return specified attributes
+            ex: search -p distinguishedName,objectClass GROUPNAME
 
 save: Saves the most recent results to a list
     ex: save
