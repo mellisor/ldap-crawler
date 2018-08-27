@@ -387,7 +387,7 @@ if __name__ == "__main__":
     l = L_Client(args.dc, args.uname, pwd)
     
     #Need to set this
-    l.setBase('dc=ds,dc=sc,dc=edu')
+    l.setBase('dc=YOUR,dc=BASE,dc=HERE')
     if l.base == 'dc=YOUR,dc=BASE,dc=HERE':
         print "Domain Components not set"
         exit()
