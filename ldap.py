@@ -1,5 +1,6 @@
 import ldap3
 import sys
+import readline
 
 class bcolors:
     HEADER = '\033[95m'
