@@ -290,7 +290,7 @@ def loop(l):
             try: 
                 #Sets the base parameters: The current base, current level, and only returns name
                 base = l.base
-                scope = ldap3.LEVEL
+                scope = ldap3.SUBTREE
                 attrib = 'distinguishedName'
                 args = 1
                 #Searches from the subtree of the origin
@@ -298,9 +298,9 @@ def loop(l):
                     base = l.origin
                     scope = ldap3.SUBTREE
                     args+=1
-                #Searches from the subtree of the current base OU
-                if "-s" in com:
-                    scope = ldap3.SUBTREE
+                #Searches the current level
+                if "-l" in com:
+                    scope = ldap3.LEVEL
                     args+=1
                 #Returns all attributes of items that match the filter
                 if "-a" in com:

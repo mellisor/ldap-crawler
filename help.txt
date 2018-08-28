@@ -36,6 +36,9 @@ search: Returns all items that match a given filter. Default scope is the curren
 
         -o: Search scope set to origin (original base)
             ex: search -o cn=Columbia 
+
+	-l: Searches only the current base OU
+	    ex: search -l cn=Columbia
         
         -p: Specific search returns specific set of attributes <-- Must be the last argument before filter
             ex: search -p distinguishedName,objectClass cn=Columbia
